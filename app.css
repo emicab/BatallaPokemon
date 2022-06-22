@@ -1,0 +1,27 @@
+*{margin: 0;padding: 0;box-sizing: border-box;}
+
+body{
+    width: 100%;
+    height: 100vh;
+}
+h1{
+    text-align: center;
+    margin: 20px;
+}
+.poke{
+    display: flex;
+    justify-content: space-around;
+}
+.imgpikachu{
+    width: 220px;
+}
+
+.pikachu, .squirtle{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+span{
+    font-size: 30px;
+    font-weight: bold;
+}
