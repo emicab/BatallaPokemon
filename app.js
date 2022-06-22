@@ -42,6 +42,7 @@ const pikataque = () =>{
             squirtle.restarVida(pikachu.poderes[0]["Impactrueno"]);
             if(squirtle.stats["ps"] <= 0){
                 alert("Has vencido a Squirtle!")
+                alert("Gracias calmar al squirtle.")
             }else{
                 vamoAtacalo();
             }
@@ -52,6 +53,7 @@ const pikataque = () =>{
             squirtle.restarVida(pikachu.poderes[1]["Bola Voltio"]);
             if(squirtle.stats["ps"] <= 0){
                 alert("Has vencido a Squirtle!")
+                alert("Gracias calmar al squirtle.")
             }else{
                 vamoAtacalo();
             }
@@ -62,6 +64,7 @@ const pikataque = () =>{
             squirtle.restarVida(pikachu.poderes[2]["Ataque Rapido"]);
             if(squirtle.stats["ps"] <= 0){
                 alert("Has vencido a Squirtle!")
+                alert("Gracias calmar al squirtle.")
             }else{
                 vamoAtacalo();
             }
@@ -72,6 +75,7 @@ const pikataque = () =>{
             squirtle.restarVida(pikachu.poderes[3]["Onda Trueno"]);
             if(squirtle.stats["ps"] <= 0){
                 alert("Has vencido a Squirtle!")
+                alert("Gracias calmar al squirtle.")
             }else{
                 vamoAtacalo();
             }
@@ -134,6 +138,6 @@ const vamoAtacalo = () =>{
         //     break;
     }
 }
-alert("Gracias calmar al squirtle.")
+
 
 pikataque();
