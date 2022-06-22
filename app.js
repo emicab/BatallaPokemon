@@ -19,9 +19,6 @@ class Pokemon{
 const pikachu = new Pokemon("Pikachu", {ps: 274, atk: 229, def: 196}, "Electrico", [{"Impactrueno": 120 }, {"Bola Voltio": 160}, {"Ataque Rapido": 75}, {"Onda Trueno": 90}]);
 const squirtle = new Pokemon("Squirtle", {ps: 292, atk: 214, def: 251}, "Agua", [{"Placaje": 100}, {"Pistola de Agua": 100}, {"Burbuja": 80}, {"Hidropulso": 120}]);
 
-// console.log(squirtle.poderes);
-// console.log(squirtle);
-
 let name = prompt("Ingresa tu nombre de entrenador...")
 let nameUp = name.toUpperCase();
 
@@ -31,7 +28,6 @@ alert("Pikachu: Pika! pika!");
 alert("Tu rival sera un Squirtle, porque lo decidi tambien");
 alert("Squirtle: Vamo a calmarno");
 alert("XD");
-// alert(`Squirtle tiene ${squirtle.stats["ps"]} puntos de vida. `)
 
 const pikataque = () =>{
     let poder = parseInt(prompt(`Es tu turno de atacar... elije con que poder empezar: \n 1. Impactrueno: ${pikachu.poderes[0]["Impactrueno"]} \n 2. Bola Voltio: ${pikachu.poderes[1]["Bola Voltio"]}\n 3. Ataque Rapido: ${pikachu.poderes[2]["Ataque Rapido"]}\n 4. Onda Trueno: ${pikachu.poderes[3]["Onda Trueno"]}`));
@@ -83,7 +79,6 @@ const pikataque = () =>{
             break;
     }
 }
-
 const vamoAtacalo = () =>{
     alert("Es el turno de Squirtle para atacar!")
     let ataqueAletorio = Math.round(Math.random(0, 5) + 1)
@@ -129,10 +124,6 @@ const vamoAtacalo = () =>{
                 pikataque();
             }
             break;
-        // default:
-        //     alert("No existe esta habilidad.")
-        //     break;
     }
 }
-
 pikataque();
