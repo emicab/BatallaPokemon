@@ -1,10 +1,11 @@
 class Pokemon{
-    constructor(nombre, stats, tipo, poderes, pocion){
+    constructor(nombre, stats, tipo, poderes, pocion, sonido){
         this.nombre = nombre;
         this.stats = stats;
         this.tipo = tipo;
         this.poderes = poderes;
         this.pocion = pocion;
+        this.sonido = sonido;
     }
     restarVida = vidaRestar => {
         this.stats["ps"] -= vidaRestar;
@@ -15,12 +16,12 @@ class Pokemon{
             // console.log(this.stats["ps"]);
         }
     }
-    
+
 }
 
 
 //Pikachu
-const pikachu = new Pokemon("Pikachu", {ps: 274, atk: 229, def: 196, atk_esp: 199, def_esp: 199, vel: 279}, "Electrico", [{Poder: "Impactrueno", Potencia: 40,"Tipo": "Electrico", "Categoria": "Especial"}, {Poder: "Chispa", Potencia: 65, "Tipo": "Electrico", "Categoria": "Fisico"}, {Poder: "Ataque Rapido", Potencia: 40, "Tipo": "Normal", "Categoria": "Fisico"}, {Poder: "Gruñido", Potencia: 0.95, "Tipo": "Normal", "Categoria": "Estado"}], {"Cantidad": 2, "Cura": 25});
+const pikachu = new Pokemon("Pikachu", {ps: 274, atk: 229, def: 196, atk_esp: 199, def_esp: 199, vel: 279}, "Electrico", [{Poder: "Impactrueno", Potencia: 40,"Tipo": "Electrico", "Categoria": "Especial"}, {Poder: "Chispa", Potencia: 65, "Tipo": "Electrico", "Categoria": "Fisico"}, {Poder: "Ataque Rapido", Potencia: 40, "Tipo": "Normal", "Categoria": "Fisico"}, {Poder: "Gruñido", Potencia: 0.95, "Tipo": "Normal", "Categoria": "Estado"}], {"Cantidad": 2, "Cura": 25}, "Pika! pikaa!");
 //Squirtle
 const squirtle = new Pokemon("Squirtle", {ps: 292, atk: 214, def: 251, atk_esp: 199, def_esp: 227, vel: 185}, "Agua", [{Poder: "Placaje", Potencia: 40, "Tipo": "Normal", "Categoria": "Fisico"}, {Poder: "Acua Cola", Potencia: 90, "Tipo": "Agua", "Categoria": "Fisico"}, {Poder: "Burbuja", Potencia: 40, "Tipo": "Agua", "Categoria": "Especial"}, {Poder: "Defensa Ferrea", Potencia: 1.10, "Tipo": "Acero", "Categoria": "Estado"}], {"Cantidad": 2, "Cura": 25});
 //Charmander
@@ -28,115 +29,164 @@ const charmander = new Pokemon("Charmander", {ps: 282, atk: 203, def: 185, atk_e
 //Bulbasaur
 const bulbasour = new Pokemon("Bulbasaur", {ps: 294, atk: 197, def: 197, atk_esp: 229, def_esp: 229, vel: 207}, "Planta", [{Poder: "Drenadoras", Potencia: 0.0625, "Tipo": "Planta", "Categoria": "Estado"}, {Poder: "Latigo Cepa", Potencia: 45, "Tipo": "Planta", "Categoria": "Fisico"}, {Poder: "Hoja Afilada", Potencia: 55, "Tipo": "Planta", "Categoria": "Fisico"}, {Poder: "Rayo Solar", Potencia: 90, "Tipo": "Planta", "Categoria": "Especial"}], {"Cantidad": 2, "Cura": 25})
 
-console.log(pikachu.poderes[1].Potencia);
+// console.log(pikachu.poderes[1].Poder);
 
+// let name = prompt("Ingresa tu nombre de entrenador...")
+// let nameUp = name.toUpperCase();
+// alert(`**********************************************\n BIENVENIDO ${nameUp} A LA BATALLA POKEMON \n **********************************************`);
 function intro(){
-    let name = prompt("Ingresa tu nombre de entrenador...")
-    let nameUp = name.toUpperCase();
-    alert(`**********************************************\n BIENVENIDO ${nameUp} A LA BATALLA POKEMON \n **********************************************`);
     
     alert("Bueno, ahora te voy a dejar que elijas tu Pokemon");
-    let eleccion = prompt("Elije el Pokemon que quieras luchar: \n 1. Pikachu\n 2. Squirtle \n 3. Charmander \n 4. Bulbasaur")
+    let eleccion = parseInt(prompt("Elije el Pokemon que quieras luchar: \n 1. Pikachu\n 2. Squirtle \n 3. Charmander \n 4. Bulbasaur"))
     
+    pokeElegido(eleccion);
     
 }
 
 
-const pikataque = () =>{
-    let poder = parseInt(prompt(`Es tu turno de atacar... elije con que poder empezar: \n 1. Impactrueno: ${pikachu.poderes[0]["Impactrueno"]} \n 2. Bola Voltio: ${pikachu.poderes[1]["Bola Voltio"]}\n 3. Ataque Rapido: ${pikachu.poderes[2]["Ataque Rapido"]}\n 4. Onda Trueno: ${pikachu.poderes[3]["Onda Trueno"]}`));
+const pokeElegido = (eleccion) =>{
+    let numRival = parseInt(Math.round(Math.random() * (5 - 1)))
+    let seleccion;
+    
+    
+    if(eleccion == 1){
+        seleccion = pikachu;
+        alert(`Has selecionado a ${seleccion.nombre}`);
+        pokeRival(numRival);
+        ataqueUsuario(seleccion, seleccionRival);
+    }else if(eleccion == 2){
+        seleccion = squirtle;
+        alert(`Has selecionado a ${seleccion.nombre}`);
+        pokeRival(numRival);
+        ataqueUsuario(seleccion, seleccionRival);
+    }else if(eleccion == 3){
+        seleccion = charmander;
+        alert(`Has selecionado a ${seleccion.nombre}`);
+        pokeRival(numRival);
+        ataqueUsuario(seleccion, seleccionRival);
+    }else if(eleccion == 4){
+        seleccion = bulbasour;
+        alert(`Has selecionado a ${seleccion.nombre}`);
+        pokeRival(numRival);
+        ataqueUsuario(seleccion, seleccionRival);
+    }else{
+        console.log('No existe ese pokemon.');
+    }
+}
+function pokeRival(numRival){  
+    console.log(numRival);
+    if(numRival == 1){
+        seleccionRival = pikachu;
+        alert('El rival ha elegido a '+ seleccionRival.nombre)
+    }else if(numRival == 2){
+        seleccionRival = squirtle;
+        alert('El rival ha elegido a '+ seleccionRival.nombre)
+    }else if(numRival == 3){
+        seleccionRival = charmander;
+        alert('El rival ha elegido a '+ seleccionRival.nombre)
+    }else if(numRival == 4){
+        seleccionRival = bulbasour;
+        alert('El rival ha elegido a '+ seleccionRival.nombre)
+    }else{
+        console.log('No existe ese pokemon.');
+    }
+}
+
+const ataqueUsuario = (seleccion, seleccionRival) =>{
+    let poder = parseInt(prompt(`Es tu turno de atacar... elije con que poder empezar: \n 1. ${seleccion.poderes[0].Poder}: ${seleccion.poderes[0].Potencia} \n 2. ${seleccion.poderes[1].Poder}: ${seleccion.poderes[1].Potencia}\n 3. ${seleccion.poderes[2].Poder}: ${seleccion.poderes[2].Potencia}\n 4. ${seleccion.poderes[3].Poder}: ${seleccion.poderes[3].Potencia}`));
     switch(poder){
         case 1:
-            alert(`Has elegido Impactrueno!`);
-            alert("Pikachu: Pika! pika!");
-            squirtle.restarVida(pikachu.poderes[0]["Impactrueno"]);
-            if(squirtle.stats["ps"] <= 0){
-                alert("Has vencido a Squirtle!")
+            alert(`Has elegido ${seleccion.poderes[0].Poder}!`);
+            
+            seleccionRival.restarVida(seleccion.poderes[0].Potencia);
+            if(seleccionRival.stats["ps"] <= 0){
+                alert(`Has vencido a ${seleccionRival.nombre}`)
             }else{
-                vamoAtacalo();
+                ataqueRival(seleccion, seleccionRival);
             }
             break;
         case 2:
-            alert(`Has elegido Bola Voltio!`);
-            alert("Pikachu: Pika! pika!");
-            squirtle.restarVida(pikachu.poderes[1]["Bola Voltio"]);
-            if(squirtle.stats["ps"] <= 0){
-                alert("Has vencido a Squirtle!")
+            alert(`Has elegido ${seleccion.poderes[1].Poder}!`);
+            
+            seleccionRival.restarVida(seleccion.poderes[1].Potencia);
+            if(seleccionRival.stats["ps"] <= 0){
+                alert(`Has vencido a ${seleccionRival.nombre}`)
             }else{
-                vamoAtacalo();
+                ataqueRival(seleccion, seleccionRival);
             }
             break;
         case 3:
-            alert(`Has elegido Ataque Rapido!`);
-            alert("Pikachu: Pika! pika!");
-            squirtle.restarVida(pikachu.poderes[2]["Ataque Rapido"]);
-            if(squirtle.stats["ps"] <= 0){
-                alert("Has vencido a Squirtle!")
+            alert(`Has elegido ${seleccion.poderes[2].Poder}!`);
+            
+            seleccionRival.restarVida(seleccion.poderes[2].Potencia);
+            if(seleccionRival.stats["ps"] <= 0){
+                alert(`Has vencido a ${seleccionRival.nombre}`)
             }else{
-                vamoAtacalo();
+                ataqueRival(seleccion, seleccionRival);
             }
             break;
         case 4:
-            alert(`Has elegido Onda Trueno!`);
-            alert("Pikachu: Pika! pika!");
-            squirtle.restarVida(pikachu.poderes[3]["Onda Trueno"]);
-            if(squirtle.stats["ps"] <= 0){
-                alert("Has vencido a Squirtle!")
+            alert(`Has elegido ${seleccion.poderes[3].Poder}!`);
+            
+            seleccionRival.restarVida(seleccion.poderes[3].Potencia);
+            if(seleccionRival.stats["ps"] <= 0){
+                alert(`Has vencido a ${seleccionRival.nombre}`)
             }else{
-                vamoAtacalo();
+                ataqueRival(seleccion, seleccionRival);
             }
             break;
         default:
             alert("No existe esta habilidad.")
-            alert("Pikachu: Pika! Pika! (perdiste el turno)");
-            vamoAtacalo();
+            alert("Perdiste el turno");
+            ataqueRival();
             break;
     }
 }
-const vamoAtacalo = () =>{
-    alert("Es el turno de Squirtle para atacar!")
-    let ataqueAletorio = Math.round(Math.random(0, 5) + 1)
-    console.log(ataqueAletorio);
+function ataqueRival(seleccion, seleccionRival){
+    alert(`Es el turno de ${seleccionRival.nombre} para atacar!`)
+    let ataqueAletorio = Math.round(Math.random() * (5 - 1)+ 1)
+    console.log('poder rival ' + ataqueAletorio);
     switch(ataqueAletorio){
         case 1:
-            alert(`Squirtle ha elegido Placaje!`);
-            alert("Squirtle: vamo a atacalo!");
-            pikachu.restarVida(squirtle.poderes[0]["Placaje"]);
-            if(pikachu.stats["ps"] <= 0){
+            alert(`${seleccionRival.nombre} ha elegido ${seleccionRival.poderes[0].Poder}!`);
+            
+            seleccion.restarVida(seleccionRival.poderes[0].Potencia);
+            if(seleccion.stats["ps"] <= 0){
                 alert("Has sido derrotado!");
             }else{
-                pikataque();
+                ataqueUsuario(seleccion, seleccionRival);
             }
             break;
         case 2:
-            alert(`Has elegido Pistola de Agua!`);
-            alert("Squirtle: vamo a atacalo!");
-            pikachu.restarVida(squirtle.poderes[1]["Pistola de Agua"]);
-            if(pikachu.stats["ps"] <= 0){
+            alert(`${seleccionRival.nombre} ha elegido ${seleccionRival.poderes[1].Poder}!`);
+            
+            seleccion.restarVida(seleccionRival.poderes[1].Potencia);
+            if(seleccion.stats["ps"] <= 0){
                 alert("Has sido derrotado!");
             }else{
-                pikataque();
+                ataqueUsuario(seleccion, seleccionRival);
             }
             break;
         case 3:
-            alert(`Has elegido Burbuja!`);
-            alert("Squirtle: vamo a atacalo!");
-            pikachu.restarVida(squirtle.poderes[2]["Burbuja"]);
-            if(pikachu.stats["ps"] <= 0){
+            alert(`${seleccionRival.nombre} ha elegido ${seleccionRival.poderes[2].Poder}!`);
+            
+            seleccion.restarVida(seleccionRival.poderes[2].Potencia);
+            if(seleccion.stats["ps"] <= 0){
                 alert("Has sido derrotado!");
             }else{
-                pikataque();
+                ataqueUsuario(seleccion, seleccionRival);
             }
             break;
         case 4:
-            alert(`Has elegido Onda Trueno!`);
-            alert("Squirtle: vamo a atacalo!");
-            pikachu.restarVida(squirtle.poderes[3]["Hidropulso"]);
-            if(pikachu.stats["ps"] <= 0){
+            alert(`${seleccionRival.nombre} ha elegido ${seleccionRival.poderes[3].Poder}!`);
+            
+            seleccion.restarVida(seleccionRival.poderes[3].Potencia);
+            if(seleccion.stats["ps"] <= 0){
                 alert("Has sido derrotado!");
             }else{
-                pikataque();
+                ataqueUsuario(seleccion, seleccionRival);
             }
             break;
     }
 }
-// intro();
+intro();
