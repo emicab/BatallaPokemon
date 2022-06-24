@@ -1,9 +1,10 @@
 class Pokemon{
-    constructor(nombre, stats, tipo, poderes){
+    constructor(nombre, stats, tipo, poderes, pocion){
         this.nombre = nombre;
         this.stats = stats;
         this.tipo = tipo;
         this.poderes = poderes;
+        this.pocion = pocion;
     }
     restarVida = vidaRestar => {
         this.stats["ps"] -= vidaRestar;
@@ -15,19 +16,30 @@ class Pokemon{
         }
     }
 }
+//Pikachu
+const pikachu = new Pokemon("Pikachu", {ps: 274, atk: 229, def: 196, atk_esp: 199, def_esp: 199, vel: 279}, "Electrico", [{"Impactrueno": 40,"Tipo": "Electrico", "Categoria": "Especial"}, {"Chispa": 65, "Tipo": "Electrico", "Categoria": "Fisico"}, {"Ataque Rapido": 40, "Tipo": "Normal", "Categoria": "Fisico"}, {"Gruñido": 0.95, "Tipo": "Normal", "Categoria": "Estado"}], {"Cantitad": 2, "Cura": 25});
+//Squirtle
+const squirtle = new Pokemon("Squirtle", {ps: 292, atk: 214, def: 251, atk_esp: 199, def_esp: 227, vel: 185}, "Agua", [{"Placaje": 40, "Tipo": "Normal", "Categoria": "Fisico"}, {"Acua Cola": 90, "Tipo": "Agua", "Categoria": "Fisico"}, {"Burbuja": 40, "Tipo": "Agua", "Categoria": "Especial"}, {"Defensa Ferrea": 1.10, "Tipo": "Acero", "Categoria": "Estado"}], {"Cantitad": 2, "Cura": 25});
+//Charmander
+const charmander = new Pokemon("Charmander", {ps: 282, atk: 203, def: 185, atk_esp: 219, def_esp: 199, vel: 229}, "Fuego",[{"Garra Metal": 40, "Tipo": "Acero", "Categoria": "Fisico"},{"Colmillo Igneo": 65, "Tipo": "Fuego", "Categoria": "Fisico"},{"Lanzallamas": 90, "Tipo": "Fuego", "Categoria": "Especial"}, {"Malicioso": 0.95, "Tipo": "Normal", "Categoria": "Estado"}], {"Cantitad": 2, "Cura": 25})
+//Bulbasaur
+const bulbasour = new Pokemon("Bulbasaur", )
 
-const pikachu = new Pokemon("Pikachu", {ps: 274, atk: 229, def: 196}, "Electrico", [{"Impactrueno": 120 }, {"Bola Voltio": 160}, {"Ataque Rapido": 75}, {"Onda Trueno": 90}]);
-const squirtle = new Pokemon("Squirtle", {ps: 292, atk: 214, def: 251}, "Agua", [{"Placaje": 100}, {"Pistola de Agua": 100}, {"Burbuja": 80}, {"Hidropulso": 120}]);
+console.log(pikachu);
 
-let name = prompt("Ingresa tu nombre de entrenador...")
-let nameUp = name.toUpperCase();
+function intro(){
+    let name = prompt("Ingresa tu nombre de entrenador...")
+    let nameUp = name.toUpperCase();
+    alert(`**********************************************\n BIENVENIDO ${nameUp} A LA BATALLA POKEMON \n **********************************************`);
+    alert("Tu Personaje Seleccionado es Pikachu, porque yo lo decido.");
+    alert("Pikachu: Pika! pika!");
+    alert("Tu rival sera un Squirtle, porque lo decidi tambien");
+    alert("Squirtle: Vamo a calmarno");
+    alert("XD");
+    
+    pikataque();
+}
 
-alert(`**********************************************\n BIENVENIDO ${nameUp} A LA BATALLA POKEMON \n **********************************************`);
-alert("Tu Personaje Seleccionado es Pikachu, porque yo lo decido.");
-alert("Pikachu: Pika! pika!");
-alert("Tu rival sera un Squirtle, porque lo decidi tambien");
-alert("Squirtle: Vamo a calmarno");
-alert("XD");
 
 const pikataque = () =>{
     let poder = parseInt(prompt(`Es tu turno de atacar... elije con que poder empezar: \n 1. Impactrueno: ${pikachu.poderes[0]["Impactrueno"]} \n 2. Bola Voltio: ${pikachu.poderes[1]["Bola Voltio"]}\n 3. Ataque Rapido: ${pikachu.poderes[2]["Ataque Rapido"]}\n 4. Onda Trueno: ${pikachu.poderes[3]["Onda Trueno"]}`));
@@ -126,4 +138,4 @@ const vamoAtacalo = () =>{
             break;
     }
 }
-pikataque();
+// intro();
