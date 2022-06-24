@@ -23,7 +23,7 @@ const squirtle = new Pokemon("Squirtle", {ps: 292, atk: 214, def: 251, atk_esp: 
 //Charmander
 const charmander = new Pokemon("Charmander", {ps: 282, atk: 203, def: 185, atk_esp: 219, def_esp: 199, vel: 229}, "Fuego",[{"Garra Metal": 40, "Tipo": "Acero", "Categoria": "Fisico"},{"Colmillo Igneo": 65, "Tipo": "Fuego", "Categoria": "Fisico"},{"Lanzallamas": 90, "Tipo": "Fuego", "Categoria": "Especial"}, {"Malicioso": 0.95, "Tipo": "Normal", "Categoria": "Estado"}], {"Cantitad": 2, "Cura": 25})
 //Bulbasaur
-const bulbasour = new Pokemon("Bulbasaur", )
+const bulbasour = new Pokemon("Bulbasaur", {ps: 294, atk: 197, def: 197, atk_esp: 229, def_esp: 229, vel: 207}, "Planta", [{"Drenadoras": 0.0625, "Tipo": "Planta", "Categoria": "Estado"}, {"Latigo Cepa": 45, "Tipo": "Planta", "Categoria": "Fisico"}, {"Hoja Afilada": 55, "Tipo": "Planta", "Categoria": "Fisico"}, {"Rayo Solar": 90, "Tipo": "Planta", "Categoria": "Especial"}], {"Cantitad": 2, "Cura": 25})
 
 console.log(pikachu);
 
@@ -31,13 +31,11 @@ function intro(){
     let name = prompt("Ingresa tu nombre de entrenador...")
     let nameUp = name.toUpperCase();
     alert(`**********************************************\n BIENVENIDO ${nameUp} A LA BATALLA POKEMON \n **********************************************`);
-    alert("Tu Personaje Seleccionado es Pikachu, porque yo lo decido.");
-    alert("Pikachu: Pika! pika!");
-    alert("Tu rival sera un Squirtle, porque lo decidi tambien");
-    alert("Squirtle: Vamo a calmarno");
-    alert("XD");
     
-    pikataque();
+    alert("Bueno, ahora te voy a dejar que elijas tu Pokemon");
+    let eleccion = prompt("Elije el Pokemon que quieras luchar: \n 1. Pikachu\n 2. Squirtle \n 3. Charmander \n 4. Bulbasour")
+    
+    
 }
 
 
