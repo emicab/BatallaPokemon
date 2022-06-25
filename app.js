@@ -7,17 +7,29 @@ class Pokemon{
         this.pocion = pocion;
         this.sonido = sonido;
     }
-    restarVida = vidaRestar => {
-        this.stats["ps"] -= vidaRestar;
+    restarVida = dañoCalculado => {
+        
+        this.stats["ps"] -= dañoCalculado;
         if(this.stats["ps"] <= 0){
             alert(`${this.nombre} ha muerto`)
         }else{
             alert(`A ${this.nombre} le quedan ${this.stats["ps"]} puntos de vida.`)
-            // console.log(this.stats["ps"]);
         }
     }
-
+    dañoUsuario = (poder) =>{
+        if(this.poderes[poder].Categoria == "Fisico"){
+            console.log("Poder Fisico");
+            calculoDañoFisico()
+            
+        }else if(this.poderes[poder].Categoria == "Especial"){
+            console.log("especial");
+            calculoDañoEspecial()
+        }else{
+            console.log("Poder de Estado");
+        }
+    }
 }
+
 
 
 //Pikachu
@@ -29,7 +41,8 @@ const charmander = new Pokemon("Charmander", {ps: 282, atk: 203, def: 185, atk_e
 //Bulbasaur
 const bulbasour = new Pokemon("Bulbasaur", {ps: 294, atk: 197, def: 197, atk_esp: 229, def_esp: 229, vel: 207}, "Planta", [{Poder: "Drenadoras", Potencia: 0.0625, "Tipo": "Planta", "Categoria": "Estado"}, {Poder: "Latigo Cepa", Potencia: 45, "Tipo": "Planta", "Categoria": "Fisico"}, {Poder: "Hoja Afilada", Potencia: 55, "Tipo": "Planta", "Categoria": "Fisico"}, {Poder: "Rayo Solar", Potencia: 90, "Tipo": "Planta", "Categoria": "Especial"}], {"Cantidad": 2, "Cura": 25})
 
-// console.log(pikachu.poderes[1].Poder);
+// console.log(pikachu.tipo);
+// pikachu.dañoUsuario(20, 0)
 
 // let name = prompt("Ingresa tu nombre de entrenador...")
 // let nameUp = name.toUpperCase();
@@ -40,14 +53,11 @@ function intro(){
     let eleccion = parseInt(prompt("Elije el Pokemon que quieras luchar: \n 1. Pikachu\n 2. Squirtle \n 3. Charmander \n 4. Bulbasaur"))
     
     pokeElegido(eleccion);
-    
 }
-
 
 const pokeElegido = (eleccion) =>{
     let numRival = parseInt(Math.round(Math.random() * (5 - 1)))
     let seleccion;
-    
     
     if(eleccion == 1){
         seleccion = pikachu;
@@ -73,6 +83,7 @@ const pokeElegido = (eleccion) =>{
         console.log('No existe ese pokemon.');
     }
 }
+
 function pokeRival(numRival){  
     console.log(numRival);
     if(numRival == 1){
@@ -91,13 +102,46 @@ function pokeRival(numRival){
         console.log('No existe ese pokemon.');
     }
 }
+function calculoDañoFisico (seleccion, poder) {
+    let dañoCalculado = 0; 
+    if(seleccion.tipo == seleccion.poderes[poder].Tipo){
+        let stab = 1.5;
+        dañoCalculado = parseInt(((2 * 50 / 5 + 2) * seleccion.stats["atk"] * seleccion.poderes[poder].Potencia / seleccionRival.stats["def"]) / 50 * stab);
+        console.log(dañoCalculado);
+        console.log("Has hecho un daño aumentado de " + dañoCalculado + " puntos!")
+        seleccion.dañoUsuario(seleccion, poder);
+        seleccionRival.restarVida(dañoCalculado);
+    }else{
+        dañoCalculado = ((2 * 50 / 5 + 2) * seleccion.stats["atk"] * seleccion.poderes[poder].Poder / seleccion.stats["def"]) / 50;
+        seleccion.dañoUsuario(seleccion, poder);
+        alert("Has hecho " + dañoCalculado + " puntos de daño!")
+    }
+}
+function calculoDañoEspecial(seleccion, poder) {
+    let dañoCalculado = 0; 
+    if(seleccion.tipo == seleccion.poderes[poder].Tipo){
+        let stab = 1.5;
+        dañoCalculado = parseInt(((2 * 50 / 5 + 2) * seleccion.stats["atk_esp"] * seleccion.poderes[poder].Potencia / seleccionRival.stats["def_esp"]) / 50 * stab);
+        console.log(dañoCalculado);
+        console.log("Has hecho un daño aumentado de " + dañoCalculado + " puntos!")
+        seleccion.dañoUsuario(seleccion, poder);
+        seleccionRival.restarVida(dañoCalculado);
+    }else{
+        dañoCalculado = ((2 * 50 / 5 + 2) * seleccion.stats["atk"] * seleccion.poderes[poder].Poder / seleccion.stats["def"]) / 50;
+        seleccion.dañoUsuario(seleccion, poder);
+        alert("Has hecho " + dañoCalculado + " puntos de daño!")
+    }
+}
+
+
 
 const ataqueUsuario = (seleccion, seleccionRival) =>{
     let poder = parseInt(prompt(`Es tu turno de atacar... elije con que poder empezar: \n 1. ${seleccion.poderes[0].Poder}: ${seleccion.poderes[0].Potencia} \n 2. ${seleccion.poderes[1].Poder}: ${seleccion.poderes[1].Potencia}\n 3. ${seleccion.poderes[2].Poder}: ${seleccion.poderes[2].Potencia}\n 4. ${seleccion.poderes[3].Poder}: ${seleccion.poderes[3].Potencia}`));
     switch(poder){
         case 1:
             alert(`Has elegido ${seleccion.poderes[0].Poder}!`);
-            
+            // calculoDañoFisico(seleccion, poder);
+            seleccion.dañoUsuario();
             seleccionRival.restarVida(seleccion.poderes[0].Potencia);
             if(seleccionRival.stats["ps"] <= 0){
                 alert(`Has vencido a ${seleccionRival.nombre}`)
@@ -106,8 +150,7 @@ const ataqueUsuario = (seleccion, seleccionRival) =>{
             }
             break;
         case 2:
-            alert(`Has elegido ${seleccion.poderes[1].Poder}!`);
-            
+            alert(`Has elegido ${seleccion.poderes[1].Poder}!`);           
             seleccionRival.restarVida(seleccion.poderes[1].Potencia);
             if(seleccionRival.stats["ps"] <= 0){
                 alert(`Has vencido a ${seleccionRival.nombre}`)
@@ -116,8 +159,7 @@ const ataqueUsuario = (seleccion, seleccionRival) =>{
             }
             break;
         case 3:
-            alert(`Has elegido ${seleccion.poderes[2].Poder}!`);
-            
+            alert(`Has elegido ${seleccion.poderes[2].Poder}!`);            
             seleccionRival.restarVida(seleccion.poderes[2].Potencia);
             if(seleccionRival.stats["ps"] <= 0){
                 alert(`Has vencido a ${seleccionRival.nombre}`)
@@ -126,8 +168,7 @@ const ataqueUsuario = (seleccion, seleccionRival) =>{
             }
             break;
         case 4:
-            alert(`Has elegido ${seleccion.poderes[3].Poder}!`);
-            
+            alert(`Has elegido ${seleccion.poderes[3].Poder}!`);            
             seleccionRival.restarVida(seleccion.poderes[3].Potencia);
             if(seleccionRival.stats["ps"] <= 0){
                 alert(`Has vencido a ${seleccionRival.nombre}`)
@@ -138,7 +179,7 @@ const ataqueUsuario = (seleccion, seleccionRival) =>{
         default:
             alert("No existe esta habilidad.")
             alert("Perdiste el turno");
-            ataqueRival();
+            // ataqueRival();
             break;
     }
 }
@@ -148,8 +189,7 @@ function ataqueRival(seleccion, seleccionRival){
     console.log('poder rival ' + ataqueAletorio);
     switch(ataqueAletorio){
         case 1:
-            alert(`${seleccionRival.nombre} ha elegido ${seleccionRival.poderes[0].Poder}!`);
-            
+            alert(`${seleccionRival.nombre} ha elegido ${seleccionRival.poderes[0].Poder}!`);            
             seleccion.restarVida(seleccionRival.poderes[0].Potencia);
             if(seleccion.stats["ps"] <= 0){
                 alert("Has sido derrotado!");
@@ -158,8 +198,7 @@ function ataqueRival(seleccion, seleccionRival){
             }
             break;
         case 2:
-            alert(`${seleccionRival.nombre} ha elegido ${seleccionRival.poderes[1].Poder}!`);
-            
+            alert(`${seleccionRival.nombre} ha elegido ${seleccionRival.poderes[1].Poder}!`);            
             seleccion.restarVida(seleccionRival.poderes[1].Potencia);
             if(seleccion.stats["ps"] <= 0){
                 alert("Has sido derrotado!");
@@ -168,8 +207,7 @@ function ataqueRival(seleccion, seleccionRival){
             }
             break;
         case 3:
-            alert(`${seleccionRival.nombre} ha elegido ${seleccionRival.poderes[2].Poder}!`);
-            
+            alert(`${seleccionRival.nombre} ha elegido ${seleccionRival.poderes[2].Poder}!`);            
             seleccion.restarVida(seleccionRival.poderes[2].Potencia);
             if(seleccion.stats["ps"] <= 0){
                 alert("Has sido derrotado!");
@@ -178,8 +216,7 @@ function ataqueRival(seleccion, seleccionRival){
             }
             break;
         case 4:
-            alert(`${seleccionRival.nombre} ha elegido ${seleccionRival.poderes[3].Poder}!`);
-            
+            alert(`${seleccionRival.nombre} ha elegido ${seleccionRival.poderes[3].Poder}!`);            
             seleccion.restarVida(seleccionRival.poderes[3].Potencia);
             if(seleccion.stats["ps"] <= 0){
                 alert("Has sido derrotado!");
