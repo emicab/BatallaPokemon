@@ -55,38 +55,38 @@ class Pokemon{
 const pikachu = new Pokemon("Pikachu",
     {ps: 274, atk: 229, def: 196, atk_esp: 199, def_esp: 199, vel: 279},
     "Electrico", 
-    [{Poder: "Impactrueno", Potencia: 40,"Tipo": "Electrico", "Categoria": "Especial"}, 
-        {Poder: "Chispa", Potencia: 65, "Tipo": "Electrico", "Categoria": "Fisico"}, 
-        {Poder: "Ataque Rapido", Potencia: 40, "Tipo": "Normal", "Categoria": "Fisico"}, 
-        {Poder: "Gruñido", Potencia: 0.95, "Tipo": "Normal", "Categoria": "Estado"}], 
+    [{Poder: "Impactrueno", Potencia: 40,"TipoPoder": "Electrico", "Categoria": "Especial"}, 
+        {Poder: "Chispa", Potencia: 65, "TipoPoder": "Electrico", "Categoria": "Fisico"}, 
+        {Poder: "Ataque Rapido", Potencia: 40, "TipoPoder": "Normal", "Categoria": "Fisico"}, 
+        {Poder: "Gruñido", Potencia: 0.95, "TipoPoder": "Normal", "Categoria": "Estado"}], 
     {"Cantidad": 2, "Cura": 25}, 
     "Pika! pikaa!");
 //Squirtle
 const squirtle = new Pokemon("Squirtle", 
     {ps: 292, atk: 214, def: 251, atk_esp: 199, def_esp: 227, vel: 185}, 
     "Agua", 
-    [{Poder: "Placaje", Potencia: 40, "Tipo": "Normal", "Categoria": "Fisico"}, 
-        {Poder: "Acua Cola", Potencia: 90, "Tipo": "Agua", "Categoria": "Fisico"}, 
-        {Poder: "Burbuja", Potencia: 40, "Tipo": "Agua", "Categoria": "Especial"}, 
-        {Poder: "Defensa Ferrea", Potencia: 1.10, "Tipo": "Acero", "Categoria": "Estado"}], 
+    [{Poder: "Placaje", Potencia: 40, "TipoPoder": "Normal", "Categoria": "Fisico"}, 
+        {Poder: "Acua Cola", Potencia: 90, "TipoPoder": "Agua", "Categoria": "Fisico"}, 
+        {Poder: "Burbuja", Potencia: 40, "TipoPoder": "Agua", "Categoria": "Especial"}, 
+        {Poder: "Defensa Ferrea", Potencia: 1.10, "TipoPoder": "Acero", "Categoria": "Estado"}], 
     {"Cantidad": 2, "Cura": 25});
 //Charmander
 const charmander = new Pokemon("Charmander", 
     {ps: 282, atk: 203, def: 185, atk_esp: 219, def_esp: 199, vel: 229}, 
     "Fuego",
-    [{Poder: "Garra Metal", Potencia: 40, "Tipo": "Acero", "Categoria": "Fisico"},
-        {Poder: "Colmillo Igneo", Potencia: 65, "Tipo": "Fuego", "Categoria": "Fisico"},
-        {Poder: "Lanzallamas", Potencia: 90, "Tipo": "Fuego", "Categoria": "Especial"}, 
-        {Poder: "Malicioso", Potencia: 0.95, "Tipo": "Normal", "Categoria": "Estado"}], 
+    [{Poder: "Garra Metal", Potencia: 40, "TipoPoder": "Acero", "Categoria": "Fisico"},
+        {Poder: "Colmillo Igneo", Potencia: 65, "TipoPoder": "Fuego", "Categoria": "Fisico"},
+        {Poder: "Lanzallamas", Potencia: 90, "TipoPoder": "Fuego", "Categoria": "Especial"}, 
+        {Poder: "Malicioso", Potencia: 0.95, "TipoPoder": "Normal", "Categoria": "Estado"}], 
     {"Cantidad": 2, "Cura": 25})
 //Bulbasaur
 const bulbasour = new Pokemon("Bulbasaur", 
     {ps: 294, atk: 197, def: 197, atk_esp: 229, def_esp: 229, vel: 207}, 
     "Planta", 
-    [{Poder: "Drenadoras", Potencia: 0.0625, Tipo: "Planta", "Categoria": "Estado"}, 
-        {Poder: "Latigo Cepa", Potencia: 45, "Tipo": "Planta", "Categoria": "Fisico"}, 
-        {Poder: "Hoja Afilada", Potencia: 55, "Tipo": "Planta", "Categoria": "Fisico"}, 
-        {Poder: "Rayo Solar", Potencia: 90, "Tipo": "Planta", "Categoria": "Especial"}], 
+    [{Poder: "Drenadoras", Potencia: 0.0625, "TipoPoder": "Planta", "Categoria": "Estado"}, 
+        {Poder: "Latigo Cepa", Potencia: 45, "TipoPoder": "Planta", "Categoria": "Fisico"}, 
+        {Poder: "Hoja Afilada", Potencia: 55, "TipoPoder": "Planta", "Categoria": "Fisico"}, 
+        {Poder: "Rayo Solar", Potencia: 90, "TipoPoder": "Planta", "Categoria": "Especial"}], 
     {"Cantidad": 2, "Cura": 25})
 
 
@@ -102,7 +102,7 @@ function intro(){
 }
 
 const pokeElegido = (eleccion) =>{
-    let numRival = parseInt(Math.ceil(Math.random(0, 5)))
+    let numRival = parseInt(Math.ceil(Math.random(0, 5) * 4))
     let seleccion;
     
     if(eleccion == 1){
@@ -128,6 +128,7 @@ const pokeElegido = (eleccion) =>{
     }else{
         console.log('No existe ese pokemon.');
     }
+    
 }
 
 function pokeRival(numRival){  
@@ -148,9 +149,11 @@ function pokeRival(numRival){
         console.log('No existe ese pokemon.');
     }
 }
+let pokemonRival = pokeRival()
+
 function calculoDañoFisicoUsuario (seleccion, poder) {
     let dañoCalculado = 0; 
-    if(seleccion.tipo == seleccion.poderes[poder].Tipo){
+    if(seleccion.tipo == seleccion.poderes[poder].TipoPoder){
         let stab = 1.5;
         dañoCalculado = parseInt(((2 * 50 / 5 + 2) * seleccion.stats["atk"] * seleccion.poderes[poder].Potencia / seleccionRival.stats["def"]) / 50 * stab);
         console.log(dañoCalculado);
@@ -165,7 +168,7 @@ function calculoDañoFisicoUsuario (seleccion, poder) {
 }
 function calculoDañoEspecialUsuario(seleccion, poder, seleccionRival) {
     let dañoCalculado = 0; 
-    if(seleccion.tipo == seleccion.poderes[poder].Tipo){
+    if(seleccion.tipo == seleccion.poderes[poder].TipoPoder){
         let stab = 1.5;
         dañoCalculado = parseInt(((2 * 50 / 5 + 2) * seleccion.stats["atk_esp"] * seleccion.poderes[poder].Potencia / seleccionRival.stats["def_esp"]) / 50 * stab);
         console.log(dañoCalculado);
@@ -179,8 +182,9 @@ function calculoDañoEspecialUsuario(seleccion, poder, seleccionRival) {
     }
 }
 function calculoDañoFisicoRival (seleccion, seleccionRival, ataqueAletorio) {
-    let dañoCalculado = 0; 
-    if(seleccionRival.tipo == seleccionRival.poderes[ataqueAletorio].Tipo){
+    let dañoCalculado = 0;
+    console.log(pokemonRival);
+    if(seleccionRival.tipo == seleccionRival.poderes[ataqueAletorio].TipoPoder){
         let stab = 1.5;
         dañoCalculado = parseInt(((2 * 50 / 5 + 2) * seleccionRival.stats["atk"] * seleccionRival.poderes[ataqueAletorio].Potencia / seleccion.stats["def"]) / 50 * stab);
         console.log(dañoCalculado);
@@ -195,7 +199,7 @@ function calculoDañoFisicoRival (seleccion, seleccionRival, ataqueAletorio) {
 }
 function calculoDañoEspecialRival(seleccionRival, ataqueAletorio, seleccion) {
     let dañoCalculado = 0; 
-    if(seleccionRival.tipo == seleccionRival.poderes[ataqueAletorio].Tipo){
+    if(seleccionRival.tipo == seleccionRival.poderes[ataqueAletorio].TipoPoder){
         let stab = 1.5;
         dañoCalculado = parseInt(((2 * 50 / 5 + 2) * seleccionRival.stats["atk_esp"] * seleccionRival.poderes[ataqueAletorio].Potencia / seleccion.stats["def_esp"]) / 50 * stab);
         console.log(dañoCalculado);
@@ -222,7 +226,7 @@ const ataqueUsuario = (seleccion, seleccionRival) =>{
             if(seleccionRival.stats["ps"] <= 0){
                 console.log(`Has vencido a ${seleccionRival.nombre}`)
             }else{
-                ataqueRival(seleccion, seleccionRival);
+                ataqueRival(seleccionRival, seleccion);
             }
             break;
         case 2:
